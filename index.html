@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test websocket</title>
+        <meta charset="utf-8">
+
+        <script>
+            function test() {
+                square = document.getElementById('connection');
+
+                // ad ogni percorso richiesto potrebbero corrispondere determinate classi di azioni
+                ws = new WebSocket("ws://localhost:" + 12345);
+
+                ws.onopen = function() {
+                    square.style.background = '#0f0';
+
+                    //bla;
+                    ws.send( document.getElementById('msg').value );
+
+                };
+
+                ws.onclose = function() {
+                    square.style.background = '#f00';
+                };
+
+                ws.onmessage = function (e) { alert(e.data); };
+            }
+        </script>
+    </head>
+
+    <body>
+        <label for='msg'>Message:</label>
+        <input id='msg' type='text' value='["somma", [3,5]]'>
+        
+        <input type='button' value='connect!' onclick='javascript:test()'>
+
+        <div id='connection' style='height:10px; width:10px; background:#f00'></div>
+        
+    </body>
+</html>
